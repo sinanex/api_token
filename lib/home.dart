@@ -1,32 +1,18 @@
-import 'package:ecommerce/reg.dart';
-import 'package:ecommerce/log.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Center(
-        child: Row(
-          children: [
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Loginpage()));
-                },
-                child: Text("register Page")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterPAge()));
-                },
-                child: Text("log Page")),
-          ],
-        ),
-      ),
+      appBar: AppBar(title: Text("login success"),),
+      body: Center(child: Text("Logged"),),
     );
   }
 }

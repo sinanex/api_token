@@ -1,3 +1,4 @@
+import 'package:ecommerce/log.dart';
 import 'package:ecommerce/model/register.dart';
 import 'package:ecommerce/services/services.dart';
 import 'package:flutter/material.dart';
@@ -49,13 +50,22 @@ class Loginpage extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                RegistrationServices registrationServices=RegistrationServices();
-                final data = Register(name: nameCrtl.text, username: usernameCtrl.text, email: emailCtrl.text, password: passwordCtrl.text);
-                registrationServices.registerUser(
-                  data
-                );
+                RegistrationServices registrationServices =
+                    RegistrationServices();
+                final data = Register(
+                    name: nameCrtl.text,
+                    username: usernameCtrl.text,
+                    email: emailCtrl.text,
+                    password: passwordCtrl.text);
+                registrationServices.registerUser(data);
               },
-              child: Text("submit"))
+              child: Text("submit")),
+          TextButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterPAge()));
+              },
+              child: Text("already have an account??"))
         ],
       ),
     );

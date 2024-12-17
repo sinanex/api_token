@@ -1,7 +1,7 @@
-
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:ecommerce/model/login.dart';
 import 'package:ecommerce/model/register.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
@@ -44,6 +44,26 @@ class RegistrationServices {
       }
     } catch (e) {
       log('Unexpected error during registration: $e');
+    }
+  }
+
+  Future<void> loginUser(Login user) async {
+    try {
+      final response = await dio.post(
+          'https://node-project-amber.vercel.app/login',
+          data: user.toJson());
+      final status = response.data['status'];
+      if (response.statusCode == 200) {
+        final token = response.data['token'];
+
+        log("$status");
+        log("$token");
+        log("${response.statusMessage}");
+      } else {
+        log("$status");
+      }
+    } catch (e) {
+      log("error $e");
     }
   }
 }
