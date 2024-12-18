@@ -1,6 +1,7 @@
 import 'package:ecommerce/controller/cart.dart';
 import 'package:ecommerce/controller/product.dart';
-import 'package:ecommerce/view/log.dart';
+
+import 'package:ecommerce/view/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CartProvider(),),
       ],
       child: MaterialApp(
-        home: RegisterPAge(),
+        home: SplashScreen(),
       ),
     );
   }

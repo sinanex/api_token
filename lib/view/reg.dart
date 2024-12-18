@@ -71,7 +71,7 @@ class Loginpage extends StatelessWidget {
                       username: usernameCtrl.text,
                       email: emailCtrl.text,
                       password: passwordCtrl.text);
-                  registrationServices.registerUser(data,context);
+                  registrationServices.registerUser(data, context);
                 },
                 child: Text("submit")),
           ),

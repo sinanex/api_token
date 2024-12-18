@@ -17,8 +17,26 @@ class CartPage extends StatelessWidget {
           itemCount: cart.cartList.length,
           itemBuilder: (context, index) {
             final data = cart.cartList[index];
-            return ListTile(
-              title: Text(data.productName ?? ''),
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: BoxDecoration(border: Border.all()),
+                width: double.infinity,
+                height: 200,
+                child: Column(
+                  children: [
+                    Image.network(
+                      '${data.src}',
+                      width: 100,
+                    ),
+                    Text(data.productName ?? ''),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text("price :\$${data.price}")
+                  ],
+                ),
+              ),
             );
           },
         ),

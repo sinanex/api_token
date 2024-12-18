@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/controller/cart.dart';
 import 'package:ecommerce/controller/product.dart';
 import 'package:ecommerce/view/cart.dart';
+import 'package:ecommerce/view/log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    // TODO: implement initState
     Provider.of<ProductProvider>(context, listen: false).getProducts();
     super.initState();
   }
@@ -23,6 +25,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     Provider.of<ProductProvider>(context, listen: false).getProducts();
+    bool isLodding =
+        Provider.of<ProductProvider>(context, listen: false).islodding;
+    if (isLodding == false) {
+      Center(
+        child: CircularProgressIndicator(),
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -32,7 +41,11 @@ class _HomePageState extends State<HomePage> {
                     MaterialPageRoute(builder: (context) => CartPage()));
               },
               icon: Icon(CupertinoIcons.cart)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.logout)),
+          IconButton(
+              onPressed: () {
+                logout();
+              },
+              icon: Icon(Icons.logout)),
         ],
         title: Text("All products"),
       ),
@@ -54,9 +67,12 @@ class _HomePageState extends State<HomePage> {
                               .addCart(productId: productdata.id ?? "");
                         },
                         icon: Icon(CupertinoIcons.cart)),
-                    Image.network(
+                    CachedNetworkImage(
+                      imageUrl: 
                       productdata.src ?? ' ',
                       width: 100,
+                      placeholder: (context, url) => Center(child: CircularProgressIndicator(),),
+                      errorWidget: (context, url, error) => Center(child: Icon(Icons.error),),
                     ),
                     Text(productdata.productName ?? "no data"),
                   ],
@@ -66,6 +82,19 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
+    );
+  }
+
+  void logout() {
+    FlutterSecureStorage storage = FlutterSecureStorage();
+
+    storage.delete(key: 'auth_token');
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => RegisterPAge()),
+      (route) {
+        return false;
+      },
     );
   }
 }

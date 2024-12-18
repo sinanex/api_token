@@ -1,3 +1,4 @@
+import 'package:ecommerce/view/admin_log.dart';
 import 'package:ecommerce/view/home.dart';
 import 'package:ecommerce/model/login.dart';
 import 'package:ecommerce/view/reg.dart';
@@ -44,8 +45,8 @@ class RegisterPAge extends StatelessWidget {
                 RegistrationServices service = RegistrationServices();
                 final data = Login(
                     username: usernameCtrl.text, password: passwordCtrl.text);
-                service.loginUser(data);
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                service.loginUser(data,context);
+              
               },
               child: Text("login")),
           TextButton(
@@ -53,7 +54,14 @@ class RegisterPAge extends StatelessWidget {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => Loginpage()));
               },
-              child: Text("don't have an account??"))
+              child: Text("don't have an account??")),
+               TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => AdminLoginPAge()));
+              },
+              child: Text("are youhh admin??")),
+              
         ],
       ),
     );
