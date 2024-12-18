@@ -1,13 +1,11 @@
-
+import 'package:ecommerce/controller/cart.dart';
 import 'package:ecommerce/controller/product.dart';
-import 'package:ecommerce/view/home.dart';
+import 'package:ecommerce/view/log.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main(){
-  runApp(ChangeNotifierProvider(
-    create: (context) => ProductProvider(),
-    child: MyApp()));
+void main() {
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -15,9 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomePage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductProvider(),),
+        ChangeNotifierProvider(create: (context) => CartProvider(),),
+      ],
+      child: MaterialApp(
+        home: RegisterPAge(),
+      ),
     );
   }
 }
-

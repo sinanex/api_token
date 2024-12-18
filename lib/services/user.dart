@@ -3,13 +3,16 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:ecommerce/model/login.dart';
 import 'package:ecommerce/model/register.dart';
+import 'package:ecommerce/view/home.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class RegistrationServices {
+  
   Dio dio = Dio();
   final FlutterSecureStorage storage = const FlutterSecureStorage();
 
-  Future<void> registerUser(Register userData) async {
+  Future<void> registerUser(Register userData,BuildContext context) async {
     try {
       log('Registering user: ${userData.toJson()}');
 
@@ -19,37 +22,46 @@ class RegistrationServices {
       );
 
       log('Response from register: ${response.statusCode} ${response.data}');
-
       if (response.statusCode == 201) {
-        final token = response.data['token'];
+        log("${response.data['message']}");
+       final token = response.data['token'];
         await storage.write(key: 'auth_token', value: token);
-
-        print(token);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomePage()));
+      } else if (response.statusCode == 400) {
+        log("${response.data['message']}");
       } else {
         log('Unexpected response status: ${response.statusCode}');
       }
     } catch (e) {
-      log('Unexpected error during registration: $e');
+      if (e is DioException) {
+        log('DioError: ${e.response?.statusCode} - ${e.response?.data}');
+      } else {
+        log('Unexpected error during registration: $e');
+      }
     }
   }
 
   Future<void> loginUser(Login user) async {
     try {
       final response = await dio.post(
-          'https://node-project-amber.vercel.app/login',
-          data: user.toJson());
-      final status = response.data['status'];
+        'https://node-project-amber.vercel.app/login',
+        data: user.toJson(),
+      );
+      log('Response from login: ${response.statusCode} ${response.data}');
       if (response.statusCode == 200) {
         final token = response.data['token'];
-        log("$status");
+        storage.write(key: 'auth_token', value: token);
+        log("${response.data['status']}");
         log("$token");
-        log("${response.statusCode}");
       } else {
-        log("${response.statusCode}");
-        log("$status");
+        log("${response.data['status']}");
       }
     } catch (e) {
-      log("error $e");
+      if (e is DioException) {
+        log('DioError: ${e.response?.statusCode} - ${e.response?.data}');
+      } else {
+        log("Unexpected error during login: $e");
+      }
     }
   }
 }
