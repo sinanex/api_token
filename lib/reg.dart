@@ -16,50 +16,65 @@ class Loginpage extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          TextField(
-            controller: nameCrtl,
-            decoration: InputDecoration(
-                hintText: 'name',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: nameCrtl,
+              decoration: InputDecoration(
+                  hintText: 'name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
           ),
-          TextField(
-            controller: usernameCtrl,
-            decoration: InputDecoration(
-                hintText: 'username',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: usernameCtrl,
+              decoration: InputDecoration(
+                  hintText: 'username',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
           ),
-          TextField(
-            controller: emailCtrl,
-            decoration: InputDecoration(
-                hintText: 'email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: emailCtrl,
+              decoration: InputDecoration(
+                  hintText: 'email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
           ),
-          TextField(
-            controller: passwordCtrl,
-            decoration: InputDecoration(
-                hintText: 'password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: passwordCtrl,
+              decoration: InputDecoration(
+                  hintText: 'password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
           ),
-          ElevatedButton(
-              onPressed: () {
-                RegistrationServices registrationServices =
-                    RegistrationServices();
-                final data = Register(
-                    name: nameCrtl.text,
-                    username: usernameCtrl.text,
-                    email: emailCtrl.text,
-                    password: passwordCtrl.text);
-                registrationServices.registerUser(data);
-              },
-              child: Text("submit")),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: () {
+                  RegistrationServices registrationServices =
+                      RegistrationServices();
+                  final data = Register(
+                      name: nameCrtl.text,
+                      username: usernameCtrl.text,
+                      email: emailCtrl.text,
+                      password: passwordCtrl.text);
+                  registrationServices.registerUser(data);
+                },
+                child: Text("submit")),
+          ),
           TextButton(
               onPressed: () {
                 Navigator.push(context,

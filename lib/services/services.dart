@@ -6,16 +6,8 @@ import 'package:ecommerce/model/register.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class RegistrationServices {
-  final Dio dio;
+  Dio dio = Dio();
   final FlutterSecureStorage storage = const FlutterSecureStorage();
-
-  RegistrationServices()
-      : dio = Dio(
-          BaseOptions(
-            connectTimeout: const Duration(seconds: 5),
-            receiveTimeout: const Duration(seconds: 5),
-          ),
-        );
 
   Future<void> registerUser(Register userData) async {
     try {
@@ -28,19 +20,14 @@ class RegistrationServices {
 
       log('Response from register: ${response.statusCode} ${response.data}');
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         final data = response.data;
         final token = response.data['token'];
         await storage.write(key: 'auth_token', value: token);
 
-        if (data is Map && data['status'] == 'success') {
-          log('User registered successfully. Token: ${data['token']}');
-        } else {
-          log('Registration failed: ${data['message'] ?? "Unknown error"}');
-        }
+        print(token);
       } else {
         log('Unexpected response status: ${response.statusCode}');
-        log('Response data: ${response.data}');
       }
     } catch (e) {
       log('Unexpected error during registration: $e');
@@ -55,11 +42,11 @@ class RegistrationServices {
       final status = response.data['status'];
       if (response.statusCode == 200) {
         final token = response.data['token'];
-
         log("$status");
         log("$token");
-        log("${response.statusMessage}");
+        log("${response.statusCode}");
       } else {
+        log("${response.statusCode}");
         log("$status");
       }
     } catch (e) {

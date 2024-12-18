@@ -3,6 +3,7 @@ import 'package:ecommerce/reg.dart';
 import 'package:ecommerce/services/services.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class RegisterPAge extends StatelessWidget {
   TextEditingController usernameCtrl = TextEditingController();
   TextEditingController passwordCtrl = TextEditingController();
@@ -14,21 +15,28 @@ class RegisterPAge extends StatelessWidget {
       appBar: AppBar(),
       body: Column(
         children: [
-          TextField(
-            controller: usernameCtrl,
-            decoration: InputDecoration(
-                hintText: 'username',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+            
+              controller: usernameCtrl,
+              decoration: InputDecoration(
+                  hintText: 'username',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
           ),
-          TextField(
-            controller: passwordCtrl,
-            decoration: InputDecoration(
-                hintText: 'password',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: passwordCtrl,
+              decoration: InputDecoration(
+                  hintText: 'password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+            ),
           ),
           ElevatedButton(
               onPressed: () {
@@ -38,9 +46,12 @@ class RegisterPAge extends StatelessWidget {
                 service.loginUser(data);
               },
               child: Text("login")),
-              TextButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (_)=>Loginpage()));
-              }, child: Text("don't have an account??"))
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => Loginpage()));
+              },
+              child: Text("don't have an account??"))
         ],
       ),
     );
