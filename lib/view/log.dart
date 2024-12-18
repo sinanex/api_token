@@ -1,6 +1,7 @@
+import 'package:ecommerce/view/home.dart';
 import 'package:ecommerce/model/login.dart';
-import 'package:ecommerce/reg.dart';
-import 'package:ecommerce/services/services.dart';
+import 'package:ecommerce/view/reg.dart';
+import 'package:ecommerce/services/user.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -44,6 +45,7 @@ class RegisterPAge extends StatelessWidget {
                 final data = Login(
                     username: usernameCtrl.text, password: passwordCtrl.text);
                 service.loginUser(data);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
               },
               child: Text("login")),
           TextButton(

@@ -21,7 +21,6 @@ class RegistrationServices {
       log('Response from register: ${response.statusCode} ${response.data}');
 
       if (response.statusCode == 201) {
-        final data = response.data;
         final token = response.data['token'];
         await storage.write(key: 'auth_token', value: token);
 

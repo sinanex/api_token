@@ -1,6 +1,6 @@
-import 'package:ecommerce/log.dart';
+import 'package:ecommerce/view/log.dart';
 import 'package:ecommerce/model/register.dart';
-import 'package:ecommerce/services/services.dart';
+import 'package:ecommerce/services/user.dart';
 import 'package:flutter/material.dart';
 
 class Loginpage extends StatelessWidget {
