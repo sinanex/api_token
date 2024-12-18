@@ -1,5 +1,6 @@
 import 'package:ecommerce/controller/cart.dart';
 import 'package:ecommerce/controller/product.dart';
+import 'package:ecommerce/view/cart.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(CupertinoIcons.cart)),
+          IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CartPage()));
+              },
+              icon: Icon(CupertinoIcons.cart)),
           IconButton(onPressed: () {}, icon: Icon(Icons.logout)),
         ],
         title: Text("All products"),
